@@ -9,6 +9,8 @@
 
 .layout {
   padding: 2rem;
+
+  height: 100vh;
   background-color: #f9f9f9;
 }
 .title {
@@ -32,6 +34,19 @@
   width: "16px";
   height: "16px";
   font-size: "16px";
+}
+table {
+  border: 2px solid forestgreen;
+  flex: 1;
+  height: 200px;
+}
+
+th {
+  border-bottom: 1px solid black;
+}
+
+td {
+  text-align: center;
 }
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
