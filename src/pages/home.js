@@ -1,9 +1,14 @@
-import React from 'react'
+import React from "react";
+import ActionBar from "../component.js/actionBar";
 
 function Home() {
   return (
-    <div>Home</div>
-  )
+    <div className="home">
+  
+      <ActionBar/>
+
+    </div>
+  );
 }
 
-export default Home
+export default Home;

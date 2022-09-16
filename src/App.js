@@ -1,10 +1,14 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import Home from "./pages/home";
+import Layout from "./component.js/layout";
 
 function App() {
   return (
-    <div className="App">
-    
+    <div>
+      <Layout>
+        <Home />
+      </Layout>
     </div>
   );
 }
