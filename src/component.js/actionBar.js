@@ -2,6 +2,9 @@ import React from "react";
 import filterIcon from "../assets/filter.png";
 import CustomButton from "./customButton";
 function ActionBar() {
+     const showAddNewToll=()=>{
+          
+     }
   return (
     <div className="action-container">
       <div style={{ display: "flex", flexDirection: "row" }}>
@@ -33,7 +36,7 @@ function ActionBar() {
       <div style={{ display: "flex", flexDirection: "row" }}>
         <CustomButton onClick={() => {}}>add vehicle entry</CustomButton>
 
-        <CustomButton onClick={() => {}}>add new toll</CustomButton>
+        <CustomButton id="myBtn" onClick={() => showAddNewToll()}>add new toll</CustomButton>
         <CustomButton onClick={() => {}}>toll list</CustomButton>
       </div>
     </div>
