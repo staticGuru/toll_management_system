@@ -84,7 +84,6 @@ td {
   align-items: center;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   border-radius: 0.5rem;
 }
 .close-button {
