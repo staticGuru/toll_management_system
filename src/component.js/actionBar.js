@@ -3,7 +3,7 @@ import filterIcon from "../assets/filter.png";
 import CustomButton from "./customButton";
 function ActionBar() {
      const showAddNewToll=()=>{
-          
+          console.log("called")
      }
   return (
     <div className="action-container">
@@ -36,7 +36,7 @@ function ActionBar() {
       <div style={{ display: "flex", flexDirection: "row" }}>
         <CustomButton onClick={() => {}}>add vehicle entry</CustomButton>
 
-        <CustomButton id="myBtn" onClick={() => showAddNewToll()}>add new toll</CustomButton>
+        <CustomButton  className="trigger" id="myBtn" onClick={() => showAddNewToll()}>add new toll</CustomButton>
         <CustomButton onClick={() => {}}>toll list</CustomButton>
       </div>
     </div>
