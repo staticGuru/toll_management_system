@@ -1,25 +1,14 @@
 import React from "react";
 import { VehicleEntryEnum } from "../enum";
+import { connect } from "react-redux";
 
-function VehicleEntryTable() {
-  const data = [
-    {
-      entry_id: "78",
-      vehicle_type: 1,
-      vehicle_number: "TN68MG1575",
-      entry_toll: { toll_id: "432", toll_name: "Madurai" },
-      tariff: 1235,
-      entry_time: "19/20/2022, 03:50:30",
-    },
-    {
-     entry_id: "72",
-     vehicle_type: 1,
-     vehicle_number: "TN68MG1575",
-     entry_toll: { toll_id: "432", toll_name: "Madurai" },
-     tariff: 1235,
-     entry_time: "19/20/2022, 03:50:30",
-   },
-  ];
+import {
+  increaseCounter,
+  decreaseCounter,
+} from "../redux/Toll/toll.actions";
+
+function VehicleEntryTable(props) {
+
   return (
     <div style={{ marginTop: "20px" }}>
       <table style={{ width: "100%" }}>
@@ -32,7 +21,7 @@ function VehicleEntryTable() {
           <th>TOLL NAME</th>
           <th>TARIFF</th>
         </tr>
-        {data.map((entry, key) => {
+        {props.entryData.map((entry, key) => {
           return (
             <tr key={entry.entry_id}>
               <td
@@ -52,4 +41,18 @@ function VehicleEntryTable() {
   );
 }
 
-export default VehicleEntryTable;
+const mapStateToProps = (state) => {
+  return {
+    count: state.toll.count,
+    entryData: state.toll.entry_data
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    increaseCounter: () => dispatch(increaseCounter()),
+
+    decreaseCounter: () => dispatch(decreaseCounter()),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(VehicleEntryTable);
