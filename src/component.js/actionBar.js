@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import filterIcon from "../assets/filter.png";
-import { filterToll, searchVehicle } from "../redux/Toll/toll.actions";
+import {
+  filterToll,
+  searchToll,
+  searchVehicle,
+} from "../redux/Toll/toll.actions";
 import AddToll from "./addToll";
 import AddVehicle from "./addVehicle";
 import AddVehicleEntry from "./addVehicle";
@@ -12,7 +16,9 @@ function ActionBar(props) {
   const [tollFilter, setTollFilter] = useState();
   const [searchValue, setSearchValue] = useState();
   const history = useHistory();
-  const isTollListPage =window.location.href?.toString()?.includes('toll_list');
+  const isTollListPage = window.location.href
+    ?.toString()
+    ?.includes("toll_list");
 
   useEffect(() => {
     var modal = document.querySelector(".modal");
@@ -61,76 +67,91 @@ function ActionBar(props) {
     document.getElementById("myDropdown").classList.toggle("show");
   }
 
-  
   const changeSearchValue = (text) => {
     if (text?.trim()?.length > 0) {
-      console.log("text", text);
       setSearchValue(text);
-      props.searchVehicle(text);
+      if (isTollListPage) {
+        props.searchToll(text);
+      } else {
+        props.searchVehicle(text);
+      }
     } else {
       setSearchValue();
-      props.searchVehicle();
+      if (isTollListPage) {
+        props.searchToll();
+      } else {
+        props.searchVehicle();
+      }
     }
   };
   return (
     <div className="action-container">
       <div style={{ display: "flex", flexDirection: "row" }}>
-       {isTollListPage?<div>Tollgate List</div>:<div>Toll entries/Vehicle entries</div>}
+        {isTollListPage ? (
+          <div>Tollgate List</div>
+        ) : (
+          <div>Toll entries/Vehicle entries</div>
+        )}
 
-        {!isTollListPage && <div
-          className="filter-container dropdown"
-          style={styles.filterContainer}
-        >
-          <div className="icon-container">
-            <img
-              src={filterIcon}
-              style={{
-                width: "20px",
-                height: "20px",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-              onClick={() => myFunction()}
-              className="filter-icons dropbtn"
-              alt="fireSpot"
-            />
-          </div>
+        {!isTollListPage && (
           <div
-            id="myDropdown"
-            class="dropdown-content"
-            style={{ height: "100px", overflowY: "scroll" }}
+            className="filter-container dropdown"
+            style={styles.filterContainer}
           >
-            {/*          <input type="text" placeholder="Search.." id="myInput" onkeyup={()=>filterFunction()}/>
-             */}
-            <div
-              style={{
-                backgroundColor: tollFilter == undefined ? "green" : "white",
-              }}
-              onClick={() => changeTollFilter()}
-            >
-              All
-            </div>
-            {props.tollList.map((toll, index) => (
-              <div
-                key={index}
+            <div className="icon-container">
+              <img
+                src={filterIcon}
                 style={{
-                  backgroundColor:
-                    tollFilter == toll.toll_id ? "green" : "white",
-                  cursor: "pointer",
+                  width: "20px",
+                  height: "20px",
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
-                onClick={() => changeTollFilter(toll.toll_id)}
+                onClick={() => myFunction()}
+                className="filter-icons dropbtn"
+                alt="fireSpot"
+              />
+            </div>
+            <div
+              id="myDropdown"
+              class="dropdown-content"
+              style={{ height: "100px", overflowY: "scroll" }}
+            >
+              {/*          <input type="text" placeholder="Search.." id="myInput" onkeyup={()=>filterFunction()}/>
+               */}
+              <div
+                style={{
+                  backgroundColor: tollFilter == undefined ? "green" : "white",
+                }}
+                onClick={() => changeTollFilter()}
               >
-                {toll.toll_name}
+                All
               </div>
-            ))}
+              {props.tollList.map((toll, index) => (
+                <div
+                  key={index}
+                  style={{
+                    backgroundColor:
+                      tollFilter == toll.toll_id ? "green" : "white",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => changeTollFilter(toll.toll_id)}
+                >
+                  {toll.toll_name}
+                </div>
+              ))}
+            </div>
           </div>
-        </div>}
+        )}
         <div>
           <div class="wrap">
             <div class="search">
               <input
                 type="text"
                 class="searchTerm"
+                placeholder={
+                  isTollListPage ? "Search toll name" : "Search vehicle"
+                }
                 value={searchValue}
                 onChange={(e) =>
                   changeSearchValue(e.target.value?.toUpperCase())
@@ -161,7 +182,23 @@ function ActionBar(props) {
             </div>
           </div>
         </div>
-        {isTollListPage?<CustomButton onClick={() => {history.push('/')}}>Back to vehicle logs</CustomButton>:<CustomButton onClick={() => {history.push('/toll_list')}}>toll list</CustomButton>}
+        {isTollListPage ? (
+          <CustomButton
+            onClick={() => {
+              history.push("/");
+            }}
+          >
+            Back to vehicle logs
+          </CustomButton>
+        ) : (
+          <CustomButton
+            onClick={() => {
+              history.push("/toll_list");
+            }}
+          >
+            toll list
+          </CustomButton>
+        )}
       </div>
     </div>
   );
@@ -186,6 +223,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     filterToll: (e) => dispatch(filterToll(e)),
     searchVehicle: (e) => dispatch(searchVehicle(e)),
+    searchToll: (e) => dispatch(searchToll(e)),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(ActionBar);

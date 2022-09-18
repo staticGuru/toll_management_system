@@ -1,7 +1,7 @@
 
 
 
-import { INCREMENT, DECREMENT, ADDNEWTOLL,NEWVEHICLEENTRY, FILTERTOLL, SEARCHVEHICLE } from './toll.types';
+import { INCREMENT, DECREMENT, ADDNEWTOLL,NEWVEHICLEENTRY, FILTERTOLL, SEARCHVEHICLE, SEARCHTOLL } from './toll.types';
 
 
 const INITIAL_STATE = {
@@ -11,6 +11,7 @@ const INITIAL_STATE = {
    toll_list:[],
    filterToll:undefined,
    searchVehicle:undefined,
+   searchToll:undefined,
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -48,7 +49,10 @@ const reducer = (state = INITIAL_STATE, action) => {
            return{
             ...state,searchVehicle:action.payload
            }
-
+       case SEARCHTOLL:
+           return{
+            ...state,searchToll:action.payload
+           }
     }
 
 };
