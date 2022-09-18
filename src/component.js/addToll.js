@@ -30,7 +30,9 @@ function AddToll(props) {
       toll_name,
       vehicleFareDetails,
     };
+
     props.addNewTollList([...props.tollList, details]);
+    localStorage.setItem('_tollList', JSON.stringify([...props.tollList, details]));
     const inputs = document.querySelectorAll("input");
     inputs.forEach((input) => {
       input.value = "";
@@ -75,7 +77,6 @@ function AddToll(props) {
                   options={[
                     { id: 0, label: "Select vehicle type" },
                     ...Object.keys(VehicleEntryEnum)
-                      .filter((key) => !selectedFare.includes(key))
                       .map((key) => ({
                         id: key,
                         label: VehicleEntryEnum[key],

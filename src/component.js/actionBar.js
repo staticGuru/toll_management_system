@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import filterIcon from "../assets/filter.png";
 import AddToll from "./addToll";
+import AddVehicle from "./addVehicle";
+import AddVehicleEntry from "./addVehicle";
 import CustomButton from "./customButton";
 function ActionBar() {
   const [addVehicleEntry,setAddVehicleEntry]=useState(false);
@@ -81,7 +83,7 @@ function ActionBar() {
       <div className="modal">
         <div className="modal-content">
           <span className="close-button">×</span>
-          <div className="inner-content">{addVehicleEntry?"guru":<AddToll/>}</div>
+          <div className="inner-content">{addVehicleEntry?<AddVehicle/>:<AddToll/>}</div>
           </div>
       </div>
       </div>

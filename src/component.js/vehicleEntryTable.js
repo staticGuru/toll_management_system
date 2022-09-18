@@ -6,6 +6,7 @@ import {
   increaseCounter,
   decreaseCounter,
 } from "../redux/Toll/toll.actions";
+import DateTimeConvertor from "../utils/dateTimeConvertor";
 
 function VehicleEntryTable(props) {
 
@@ -30,7 +31,7 @@ function VehicleEntryTable(props) {
                 {VehicleEntryEnum[entry.vehicle_type]}
               </td>
               <td>{entry.vehicle_number}</td>
-              <td>{entry.entry_time}</td>
+              <td>{DateTimeConvertor(entry.entry_datetime)}</td>
               <td>{entry.entry_toll.toll_name}</td>
               <td>{entry.tariff}</td>
             </tr>

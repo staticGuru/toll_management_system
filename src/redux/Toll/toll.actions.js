@@ -1,4 +1,4 @@
-import { INCREMENT, DECREMENT, ADDNEWTOLL } from "./toll.types";
+import { INCREMENT, DECREMENT, ADDNEWTOLL,NEWVEHICLEENTRY } from "./toll.types";
 
 export const increaseCounter = (payload) => {
   return {
@@ -17,4 +17,10 @@ export const addNewTollList=(payload) => {
           type: ADDNEWTOLL,
           payload
      }
+}
+export const addNewVehicleEntry=(payload) => {
+return{
+  type: NEWVEHICLEENTRY,
+  payload
+}
 }
