@@ -17,7 +17,7 @@ function Home(props) {
   }, [props]);
   return (
     <div className="home">
-      <ActionBar />
+      <ActionBar tollList={props.tollList} />
       <VehicleEntryTable />
     </div>
   );

@@ -37,19 +37,31 @@ function AddVehicle(props) {
     document.querySelector(".modal")?.classList.toggle("show-modal");
 
   };
-  function tariffCalculator(){
+  function tariffCalculator(amount){
     const isVehiclePassed=props.entryData.filter(e=>(e.entry_toll.toll_id ==toll && e.vehicle_number ==vehicleNumber))
     if(isVehiclePassed.length>0){
-        console.log("vppped passed")
+       
+        const lastCrossedTime =new Date(isVehiclePassed[0]?.entry_datetime)?.getTime() / 1000;
+        const reCrossedTime= new Date()?.getTime() / 1000;
+        console.log("vppped passed",reCrossedTime-lastCrossedTime);
+        if((reCrossedTime-lastCrossedTime) <=3600){
+          setTariff(amount.return_journey);
+        }else{
+          setTariff(amount.single_journey);
+
+        }
+
     }else{
       console.log("No vehicle passed")
+      setTariff(amount.single_journey);
+
     }
   }
   const findVehicleNumber = () => {
     var amount = props.tollList.filter((e) => e.toll_id == toll)[0]
-      ?.vehicleFareDetails[vehicleType]?.single_journey;
-       tariffCalculator();
-    setTariff(amount);
+      ?.vehicleFareDetails[vehicleType];
+       tariffCalculator(amount);
+    
   };
   useEffect(() => {
     if (toll && vehicleType && vehicleNum) {

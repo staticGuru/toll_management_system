@@ -1,4 +1,4 @@
-import { INCREMENT, DECREMENT, ADDNEWTOLL,NEWVEHICLEENTRY } from "./toll.types";
+import { INCREMENT, DECREMENT, ADDNEWTOLL,NEWVEHICLEENTRY, FILTERTOLL, SEARCHVEHICLE } from "./toll.types";
 
 export const increaseCounter = (payload) => {
   return {
@@ -23,4 +23,16 @@ return{
   type: NEWVEHICLEENTRY,
   payload
 }
+}
+export const filterToll=(payload)=>{
+  return{
+    type:FILTERTOLL,
+    payload
+  }
+}
+export const searchVehicle=(payload) => {
+  return {
+    type: SEARCHVEHICLE,
+    payload
+  }
 }
