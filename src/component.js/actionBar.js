@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
+import { useHistory } from "react-router-dom";
 import filterIcon from "../assets/filter.png";
 import { filterToll, searchVehicle } from "../redux/Toll/toll.actions";
 import AddToll from "./addToll";
@@ -9,7 +10,10 @@ import CustomButton from "./customButton";
 function ActionBar(props) {
   const [addVehicleEntry, setAddVehicleEntry] = useState(false);
   const [tollFilter, setTollFilter] = useState();
-  const [searchValue,setSearchValue] = useState();
+  const [searchValue, setSearchValue] = useState();
+  const history = useHistory();
+  const isTollListPage =window.location.href?.toString()?.includes('toll_list');
+
   useEffect(() => {
     var modal = document.querySelector(".modal");
     var trigger = document.querySelector(".trigger");
@@ -57,40 +61,23 @@ function ActionBar(props) {
     document.getElementById("myDropdown").classList.toggle("show");
   }
 
-  function filterFunction() {
-    var input, filter, ul, li, a, i, div, txtValue;
-    input = document.getElementById("myInput");
-    filter = input.value.toUpperCase();
-    div = document.getElementById("myDropdown");
-    a = div.getElementsByTagName("a");
-    for (i = 0; i < a.length; i++) {
-      txtValue = a[i].textContent || a[i].innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        a[i].style.display = "";
-      } else {
-        a[i].style.display = "none";
-      }
-    }
-  }
-  const changeSearchValue=(text) => {
   
-    if(text?.trim()?.length >0){
-      console.log("text",text)
+  const changeSearchValue = (text) => {
+    if (text?.trim()?.length > 0) {
+      console.log("text", text);
       setSearchValue(text);
       props.searchVehicle(text);
-    }else{
+    } else {
       setSearchValue();
       props.searchVehicle();
     }
-    
-
-  }
+  };
   return (
     <div className="action-container">
       <div style={{ display: "flex", flexDirection: "row" }}>
-        <div>Toll entries/Vehicle entries</div>
+       {isTollListPage?<div>Tollgate List</div>:<div>Toll entries/Vehicle entries</div>}
 
-        <div
+        {!isTollListPage && <div
           className="filter-container dropdown"
           style={styles.filterContainer}
         >
@@ -116,7 +103,9 @@ function ActionBar(props) {
             {/*          <input type="text" placeholder="Search.." id="myInput" onkeyup={()=>filterFunction()}/>
              */}
             <div
-              style={{ backgroundColor: tollFilter==undefined?'green':"white" }}
+              style={{
+                backgroundColor: tollFilter == undefined ? "green" : "white",
+              }}
               onClick={() => changeTollFilter()}
             >
               All
@@ -135,11 +124,18 @@ function ActionBar(props) {
               </div>
             ))}
           </div>
-        </div>
+        </div>}
         <div>
           <div class="wrap">
             <div class="search">
-              <input type="text" class="searchTerm" value={searchValue} onChange={(e) =>changeSearchValue(e.target.value?.toUpperCase())}/>
+              <input
+                type="text"
+                class="searchTerm"
+                value={searchValue}
+                onChange={(e) =>
+                  changeSearchValue(e.target.value?.toUpperCase())
+                }
+              />
             </div>
           </div>
         </div>
@@ -165,7 +161,7 @@ function ActionBar(props) {
             </div>
           </div>
         </div>
-        <CustomButton onClick={() => {}}>toll list</CustomButton>
+        {isTollListPage?<CustomButton onClick={() => {history.push('/')}}>Back to vehicle logs</CustomButton>:<CustomButton onClick={() => {history.push('/toll_list')}}>toll list</CustomButton>}
       </div>
     </div>
   );
@@ -182,14 +178,14 @@ const styles = {
 const mapStateToProps = (state) => {
   return {
     count: state.toll.count,
-    entryData: state.toll.entry_data
+    entryData: state.toll.entry_data,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     filterToll: (e) => dispatch(filterToll(e)),
-    searchVehicle:(e) => dispatch(searchVehicle(e))
+    searchVehicle: (e) => dispatch(searchVehicle(e)),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(ActionBar);
