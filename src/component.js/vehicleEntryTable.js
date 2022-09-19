@@ -8,8 +8,8 @@ import DateTimeConvertor from "../utils/dateTimeConvertor";
 function VehicleEntryTable(props) {
   return (
     <div style={{ marginTop: "20px" }}>
-      <table style={{ width: "100%" }}>
-        <tr>
+      <table style={{ width: "80%",margin:'auto' }}>
+        <tr className="table-header">
           <th style={{ width: "40%", textAlign: "left", paddingLeft: "20px" }}>
             VEHICLE TYPE
           </th>

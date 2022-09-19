@@ -36,18 +36,27 @@
   font-size: "16px";
 }
 table {
-  border: 2px solid forestgreen;
+  /* border: 2px solid forestgreen; */
   flex: 1;
   height: 200px;
+  border-collapse: collapse;
 }
-
-th {
-  border-bottom: 1px solid black;
+.table-header {
+  background-color: #2a2341;
 }
 
 td {
   text-align: center;
 }
+th,
+td {
+  text-align: left;
+  padding: 8px;
+}
+tr:nth-child(even) {
+  background-color: #d6eeee;
+}
+
 .trigger {
   text-align: center;
   padding: 7px 13px;
