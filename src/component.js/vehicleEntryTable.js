@@ -49,6 +49,7 @@ function VehicleEntryTable(props) {
             );
           })}
       </table>
+   
     </div>
   );
 }

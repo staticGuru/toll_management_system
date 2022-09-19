@@ -86,11 +86,18 @@ function ActionBar(props) {
   };
   return (
     <div className="action-container">
-      <div style={{ display: "flex", flexDirection: "row" }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         {isTollListPage ? (
-          <div>Tollgate List</div>
+          <div className="page-title">Tollgate List</div>
         ) : (
-          <div>Toll entries/Vehicle entries</div>
+          <div className="page-title">Toll entries/Vehicle entries</div>
         )}
 
         {!isTollListPage && (
@@ -102,8 +109,8 @@ function ActionBar(props) {
               <img
                 src={filterIcon}
                 style={{
-                  width: "20px",
-                  height: "20px",
+                  width: "19px",
+                  height: "19px",
                   alignItems: "center",
                   justifyContent: "center",
                 }}
@@ -121,7 +128,9 @@ function ActionBar(props) {
                */}
               <div
                 style={{
-                  backgroundColor: tollFilter == undefined ? "green" : "white",
+                  cursor: "pointer",
+                  backgroundColor:
+                    tollFilter == undefined ? "#249a9a" : "#EEEEEE",
                 }}
                 onClick={() => changeTollFilter()}
               >
@@ -132,7 +141,7 @@ function ActionBar(props) {
                   key={index}
                   style={{
                     backgroundColor:
-                      tollFilter == toll.toll_id ? "green" : "white",
+                      tollFilter == toll.toll_id ? "#249a9a" : "#EEEEEE",
                     cursor: "pointer",
                   }}
                   onClick={() => changeTollFilter(toll.toll_id)}
@@ -143,9 +152,30 @@ function ActionBar(props) {
             </div>
           </div>
         )}
-        <div>
+        <div style={{marginLeft:isTollListPage?'10px':'0px'}}>
           <div class="wrap">
-            <div class="search">
+            <div
+              class="search"
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                padding: "8px",
+                backgroundColor: "white",
+                borderRadius: "15px",
+              }}
+            >
+              <img
+                src={filterIcon}
+                style={{
+                  width: "15px",
+                  height: "15px",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginRight:'10px'
+                }}
+                alt="search"
+              />
               <input
                 type="text"
                 class="searchTerm"
@@ -166,11 +196,11 @@ function ActionBar(props) {
           className="entry-trigger"
           onClick={() => showAddNewToll()}
         >
-          add vehicle entry
+          Add vehicle entry
         </CustomButton>
 
         <CustomButton className="trigger" onClick={() => showAddNewToll()}>
-          add new toll
+          Add new toll
         </CustomButton>
         <div>
           <div className="modal">
@@ -196,7 +226,7 @@ function ActionBar(props) {
               history.push("/toll_list");
             }}
           >
-            toll list
+            Toll list
           </CustomButton>
         )}
       </div>

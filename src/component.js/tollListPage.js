@@ -12,9 +12,9 @@ function TollListPage(props) {
   };
   return (
     <div style={{ marginTop: "20px" }}>
-      <table style={{ width: "100%" }}>
-        <tr>
-          <th style={{ width: "40%", textAlign: "left", paddingLeft: "20px" }}>
+      <table style={{ width: "80%",margin:'auto' }}>
+        <tr className="table-header" >
+          <th style={{ width: "40%", textAlign: "left", paddingLeft: "20px"  }}>
             TOLL NAME
           </th>
           {Object.keys(VehicleEntryEnum).map((key) => (
@@ -37,23 +37,27 @@ function TollListPage(props) {
                   (document.getElementById(`delete_${key}`).style.opacity = 1)
                 }
                 key={toll.toll_id}
+                style={{cursor: "pointer"}}
               >
                 <td
                   style={{
                     width: "40%",
                     textAlign: "left",
                     paddingLeft: "20px",
+                    alignItems: "center",
+                    
                   }}
                 >
                   <>
                     <img
                       src={filterIcon}
                       style={{
-                        width: "10px",
-                        height: "10px",
+                        width: "20px",
+                        height: "20px",
                         alignItems: "center",
                         justifyContent: "center",
                         opacity: 0,
+                        backgroundColor:'red'
                       }}
                       onClick={() => deleteToll(toll.toll_id)}
                       id={`delete_${key}`}

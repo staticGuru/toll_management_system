@@ -17,8 +17,10 @@ function TollList(props) {
         }, [props]);
   return (
     <div className="home">
-      <ActionBar tollList={[]} />
+      <ActionBar />
+      <div>
       <TollListPage tollList={props.tollList} />
+      </div>
     </div>
   );
 }
