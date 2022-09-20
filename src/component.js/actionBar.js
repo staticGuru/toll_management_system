@@ -31,6 +31,7 @@ function ActionBar(props) {
       modal.classList.toggle("show-modal");
     }
     function entryToggleModal() {
+      console.log("toggleModal");
       setAddVehicleEntry(true);
       modal.classList.toggle("show-modal");
     }
@@ -193,19 +194,20 @@ function ActionBar(props) {
       </div>
       <div style={{ display: "flex", flexDirection: "row" }}>
         <CustomButton
-          className="entry-trigger"
-          onClick={() => showAddNewToll()}
+          className="entry-trigger customButton"
         >
           Add vehicle entry
         </CustomButton>
 
-        <CustomButton className="trigger" onClick={() => showAddNewToll()}>
+        <CustomButton className="trigger customButton">
           Add new toll
         </CustomButton>
         <div>
           <div className="modal">
             <div className="modal-content">
+            <div>
               <span className="close-button">×</span>
+              </div>
               <div className="inner-content">
                 {addVehicleEntry ? <AddVehicle /> : <AddToll />}
               </div>
@@ -214,6 +216,7 @@ function ActionBar(props) {
         </div>
         {isTollListPage ? (
           <CustomButton
+          className="customButton"
             onClick={() => {
               history.push("/");
             }}
@@ -222,6 +225,7 @@ function ActionBar(props) {
           </CustomButton>
         ) : (
           <CustomButton
+          className="customButton"
             onClick={() => {
               history.push("/toll_list");
             }}

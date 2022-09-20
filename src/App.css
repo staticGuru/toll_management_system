@@ -78,7 +78,7 @@ tr:nth-child(even) {
   transition: box-shadow 0.3s;
 }
 .customButton:hover {
-  box-shadow: 0 0 30px rgba(31, 183, 72, 0.909);
+  box-shadow: 0 0 10px rgba(31, 183, 72, 0.909);
 }
 
 .trigger {
@@ -110,7 +110,7 @@ tr:nth-child(even) {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: white;
+  background-color: #adddd0;
   padding: 1rem 1.5rem;
   width: 50rem;
   height: auto;
@@ -122,10 +122,11 @@ tr:nth-child(even) {
 .close-button {
   float: right !important;
   width: 1.5rem;
-  justify-content: flex-end;
+
   line-height: 1.5rem;
   text-align: center;
   cursor: pointer;
+  font-size: 20px;
   border-radius: 0.25rem;
   background-color: lightgray;
 }

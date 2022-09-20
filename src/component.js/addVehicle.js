@@ -83,9 +83,12 @@ function AddVehicle(props) {
         justifyContent: "center",
         alignItems: "center",
         textAlign: "center",
+        paddingLeft: "20px",
+        paddingRight: "20px",
+     
       }}
     >
-      <div>Add new entry</div>
+      <div style={{textAlign: "center",fontWeight: "bold",fontSize: "20px"}}>Add new entry</div>
       <div style={{ textAlign: "left" }}>
         <div>Select toll name</div>
         <div>

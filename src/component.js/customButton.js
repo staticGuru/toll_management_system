@@ -6,7 +6,7 @@ function CustomButton(props) {
   return (
     <div
       {...props}
-      className="customButton"
+      // className="customButton"
       onClick={props.onClick}
       style={{
         padding: "2px 15px",
