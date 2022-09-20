@@ -5,14 +5,31 @@ import { addNewVehicleEntry } from "../redux/Toll/toll.actions";
 import DropDown from "./dropdown";
 
 function AddVehicle(props) {
-  const [toll, setToll] = useState();
-  const [vehicleType, setVehicleType] = useState();
+  const [toll, setToll] = useState(0);
+  const [vehicleType, setVehicleType] = useState(0);
   const [vehicleNumber, setVehicleNumber] = useState();
   const [tariff, setTariff] = useState();
   const [vehicleNum, setVehicleNum] = useState();
 
   const addEntryHandler = () => {
     console.log("called", toll, vehicleType, vehicleNumber, tariff);
+    var vehicleName = document.forms.RegForm.vehicleName;
+    var VehicleTypeName=document.forms.RegForm.VehicleTypeName;
+    if(toll ==0){
+      window.alert("Please select toll name");
+      return false;
+    }
+    if(vehicleType ==0){
+      window.alert("Please select vehicle type.");
+      VehicleTypeName.focus();
+        return false;
+    }
+    if (vehicleNumber == undefined) {
+      window.alert("Please enter your vehicle number.");
+      vehicleName.focus();
+      return false;
+  }
+
     const bodyData = {
       entry_id: Math.random(),
       vehicle_type: vehicleType,
@@ -26,6 +43,7 @@ function AddVehicle(props) {
       tariff,
       entry_datetime: new Date(),
     };
+  
     props.addNewVehicleEntry([bodyData, ...props.entryData]);
     setToll();
     setVehicleNumber();
@@ -78,7 +96,7 @@ function AddVehicle(props) {
     }
   };
   return (
-    
+    <form name="RegForm" onsubmit={()=>console.log("called")} method="post">
     <div
       style={{
         justifyContent: "center",
@@ -118,6 +136,7 @@ function AddVehicle(props) {
                   label: VehicleEntryEnum[key],
                 })),
               ]}
+              name="VehicleTypeName"
               dropDownId={"selectVehicleType"}
               onDropDownChange={(e) => setVehicleType(e.target.value)}
             />
@@ -128,10 +147,11 @@ function AddVehicle(props) {
               type="text"
               id="vehicleNumber"
               className="input-number"
+              name="vehicleName"
               value={vehicleNumber}
               onBlur={focusOut}
               placeholder="Enter your vehicle number"
-              onChange={(e) => setVehicleNumber(e.target.value)}
+              onChange={(e) => setVehicleNumber(e.target.value?.trim())}
             />
           </div>
           <div className="popup-text">Tariff</div>
@@ -155,6 +175,7 @@ function AddVehicle(props) {
         Add Entry
       </div>
     </div>
+    </form>
   );
 }
 const mapStateToProps = (state) => {
