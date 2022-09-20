@@ -11,7 +11,13 @@ function AddToll(props) {
   };
   const submitDetails = () => {
     const toll_name = document.querySelector("#toll_name")?.value;
+    var vehicleName = document.forms.my_form.vehicleName;
 
+    if (tollName == undefined) {
+      window.alert("Please enter toll name");
+      document.forms.my_form.tollInputName.focus();
+      return false;
+    }
     const vehicleFareDetails = Object.fromEntries(
       new Map(
         Object.entries(VehicleEntryEnum).map(([key, val]) => [
@@ -25,6 +31,31 @@ function AddToll(props) {
         ])
       )
     );
+    console.log("faatre", Object.keys(vehicleFareDetails));
+    if (
+      Object.keys(vehicleFareDetails).length !=
+        Object.keys(VehicleEntryEnum).length ||
+      Object.keys(vehicleFareDetails).includes("0")
+    ) {
+      console.log(
+        "values",
+        Object.values(vehicleFareDetails).filter((e) => e.single_journey == "")
+      );
+
+      window.alert("Please select the all vehicle type");
+      return false;
+    }
+    if (
+      Object.values(vehicleFareDetails).filter((e) => e.single_journey == "")
+        .length > 0 ||
+      Object.values(vehicleFareDetails).filter((e) => e.return_journey == "")
+        .length > 0
+    ) {
+      window.alert(
+        "Please enter all the single journey and return journey fares"
+      );
+      return false;
+    }
     const details = {
       toll_id: Math.random()?.toString(),
       toll_name,
@@ -63,7 +94,7 @@ function AddToll(props) {
       >
         Add new Toll
       </div>
-      <form action="" id="my_form">
+      <form name="my_form" action="" id="my_form">
         <div class="required popup-text" style={{ marginBottom: "10px" }}>
           Toll name
         </div>
@@ -72,8 +103,9 @@ function AddToll(props) {
           id="toll_name"
           className="toll-name"
           value={tollName}
+          name="tollInputName"
           placeholder="Toll name"
-          onChange={(e) => setTollName(e.target.value)}
+          onChange={(e) => setTollName(e.target.value?.trim())}
         />
         <div style={{ marginBottom: "20px" }}>
           <div class="required popup-text">Vehicle fare details</div>
@@ -91,6 +123,7 @@ function AddToll(props) {
               <div style={{ flex: 0.3 }}>
                 <DropDown
                   dropDownId={`faredropdown_${key}`}
+                  name={`faredropdownname_${key}`}
                   options={[
                     { id: 0, label: "Select vehicle type" },
                     ...Object.keys(VehicleEntryEnum).map((key) => ({

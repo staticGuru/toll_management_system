@@ -6,7 +6,9 @@
   height: 40vmin;
   pointer-events: none;
 }
-
+.tollListclass:hover {
+  border: 1px solid grey;
+}
 .layout {
   padding: 2rem;
 

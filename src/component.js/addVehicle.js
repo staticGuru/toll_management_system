@@ -36,7 +36,7 @@ function AddVehicle(props) {
       vehicle_number: vehicleNumber,
       entry_toll: {
         toll_id: toll,
-        toll_name: props.tollList.filter((e) => e.toll_id == toll)[0]
+        toll_name: props.tollList?.filter((e) => e.toll_id == toll)[0]
           ?.toll_name,
       },
 
@@ -45,11 +45,19 @@ function AddVehicle(props) {
     };
   
     props.addNewVehicleEntry([bodyData, ...props.entryData]);
-    setToll();
+    setToll(0);
     setVehicleNumber();
-    setVehicleType();
+    setVehicleType(0);
     setTariff();
     setVehicleNum();
+    const inputs = document.querySelectorAll("input");
+    inputs.forEach((input) => {
+      input.value = "";
+    });
+    const selects = document.querySelectorAll("select");
+    selects.forEach((select) => {
+      select.value = 0;
+    });
     localStorage.setItem('_entryList', JSON.stringify([bodyData, ...props.entryData]));
 
     document.querySelector(".modal")?.classList.toggle("show-modal");
@@ -76,7 +84,7 @@ function AddVehicle(props) {
     }
   }
   const findVehicleNumber = () => {
-    var amount = props.tollList.filter((e) => e.toll_id == toll)[0]
+    var amount = props.tollList?.filter((e) => e.toll_id == toll)[0]
       ?.vehicleFareDetails[vehicleType];
        tariffCalculator(amount);
     

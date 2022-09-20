@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import filterIcon from "../assets/filter.png";
+import searchIcon from "../assets/search.png";
 import {
   filterToll,
   searchToll,
@@ -110,8 +111,8 @@ function ActionBar(props) {
               <img
                 src={filterIcon}
                 style={{
-                  width: "19px",
-                  height: "19px",
+                  width: "15px",
+                  height: "15px",
                   alignItems: "center",
                   justifyContent: "center",
                 }}
@@ -137,7 +138,7 @@ function ActionBar(props) {
               >
                 All
               </div>
-              {props.tollList.map((toll, index) => (
+              {props.tollList?.map((toll, index) => (
                 <div
                   key={index}
                   style={{
@@ -147,7 +148,7 @@ function ActionBar(props) {
                   }}
                   onClick={() => changeTollFilter(toll.toll_id)}
                 >
-                  {toll.toll_name}
+                  {toll?.toll_name}
                 </div>
               ))}
             </div>
@@ -167,7 +168,7 @@ function ActionBar(props) {
               }}
             >
               <img
-                src={filterIcon}
+                src={searchIcon}
                 style={{
                   width: "15px",
                   height: "15px",
