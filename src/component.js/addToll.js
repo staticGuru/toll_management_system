@@ -32,7 +32,10 @@ function AddToll(props) {
     };
 
     props.addNewTollList([...props.tollList, details]);
-    localStorage.setItem('_tollList', JSON.stringify([...props.tollList, details]));
+    localStorage.setItem(
+      "_tollList",
+      JSON.stringify([...props.tollList, details])
+    );
     const inputs = document.querySelectorAll("input");
     inputs.forEach((input) => {
       input.value = "";
@@ -55,32 +58,45 @@ function AddToll(props) {
         width: "100%",
       }}
     >
+      <div
+        style={{ alignSelf: "center", fontWeight: "bold", fontSize: "20px" }}
+      >
+        Add new Toll
+      </div>
       <form action="" id="my_form">
-        <div class="required">Toll name</div>
+        <div class="required popup-text" style={{ marginBottom: "10px" }}>
+          Toll name
+        </div>
         <input
           type="text"
           id="toll_name"
+          className="toll-name"
           value={tollName}
           placeholder="Toll name"
           onChange={(e) => setTollName(e.target.value)}
         />
-        <div>
-          <div class="required">Vehicle fare details</div>
+        <div style={{ marginBottom: "20px" }}>
+          <div class="required popup-text">Vehicle fare details</div>
           {Object.keys(VehicleEntryEnum).map((key, index) => (
             <div
               key={index}
-              style={{ display: "flex", flexDirection: "row", flex: 1 }}
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
             >
               <div style={{ flex: 0.3 }}>
                 <DropDown
                   dropDownId={`faredropdown_${key}`}
                   options={[
                     { id: 0, label: "Select vehicle type" },
-                    ...Object.keys(VehicleEntryEnum)
-                      .map((key) => ({
-                        id: key,
-                        label: VehicleEntryEnum[key],
-                      })),
+                    ...Object.keys(VehicleEntryEnum).map((key) => ({
+                      id: key,
+                      label: VehicleEntryEnum[key],
+                    })),
                   ]}
                   onDropDownChange={(e) => changeFare(e)}
                 />
@@ -89,6 +105,7 @@ function AddToll(props) {
                 <input
                   id={`sinjry_${key}`}
                   type="number"
+                  className="journey-fare"
                   placeholder="Single journey"
                 />
               </div>
@@ -96,6 +113,7 @@ function AddToll(props) {
                 <input
                   id={`rtnjry_${key}`}
                   type="number"
+                  className="journey-fare"
                   placeholder="Return journey"
                 />
               </div>
@@ -104,15 +122,23 @@ function AddToll(props) {
         </div>
         <div
           style={{
-            backgroundColor: "blue",
-            textAlign: "center",
+            marginTop: "10px",
+            backgroundColor: "#5F6F94",
             cursor: "pointer",
+            width: "70%",
+            alignSelf: "center",
+            textAlign: "center",
+            margin: "auto",
+            padding: "10px",
+            borderRadius: 10,
+            color: "white",
+            fontWeight: "bold",
           }}
           onClick={() => {
             submitDetails();
           }}
         >
-          add details
+          Add details
         </div>
       </form>
     </div>

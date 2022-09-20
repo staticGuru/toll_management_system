@@ -78,6 +78,7 @@ function AddVehicle(props) {
     }
   };
   return (
+    
     <div
       style={{
         justifyContent: "center",
@@ -85,13 +86,16 @@ function AddVehicle(props) {
         textAlign: "center",
         paddingLeft: "20px",
         paddingRight: "20px",
+        // display: "flex",
+        // flexDirection: "column",
      
       }}
     >
       <div style={{textAlign: "center",fontWeight: "bold",fontSize: "20px"}}>Add new entry</div>
       <div style={{ textAlign: "left" }}>
-        <div>Select toll name</div>
+        <div className="popup-text required">Select toll name</div>
         <div>
+        <div style={{width: "100%"}}>
           <DropDown
             options={[
               { id: 0, label: "Select toll" },
@@ -103,7 +107,8 @@ function AddVehicle(props) {
             dropDownId={"selectToll"}
             onDropDownChange={(e) => setToll(e.target.value)}
           />
-          <div>Select vehicl type</div>
+          </div>
+          <div className="popup-text required">Select vehicle type</div>
           <div>
             <DropDown
               options={[
@@ -117,23 +122,25 @@ function AddVehicle(props) {
               onDropDownChange={(e) => setVehicleType(e.target.value)}
             />
           </div>
-          <div>Vehicle Number</div>
-          <div>
+          <div className="popup-text required">Vehicle Number</div>
+          <div style={{marginTop:'10px'}}>
             <input
               type="text"
               id="vehicleNumber"
+              className="input-number"
               value={vehicleNumber}
               onBlur={focusOut}
               placeholder="Enter your vehicle number"
               onChange={(e) => setVehicleNumber(e.target.value)}
             />
           </div>
-          <div>Tariff</div>
-          <div>
+          <div className="popup-text">Tariff</div>
+          <div style={{marginTop:'10px',marginBottom:'20px'}}>
             <input
               type="number"
               placeholder="Tariff amount"
               value={tariff}
+              className="input-number"
               disabled
               onChange={(e) => setTariff(e)}
               id="tariff"
@@ -142,7 +149,7 @@ function AddVehicle(props) {
         </div>
       </div>
       <div
-        style={{ backgroundColor: "blue", cursor: "pointer" }}
+        style={{marginTop:'10px', backgroundColor: "#5F6F94", cursor: "pointer",width:'70%',alignSelf:'center',margin:'auto',padding:'10px',borderRadius:10,color:'white',fontWeight:'bold' }}
         onClick={() => addEntryHandler()}
       >
         Add Entry

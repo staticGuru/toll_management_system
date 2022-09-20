@@ -204,7 +204,7 @@ function ActionBar(props) {
         </CustomButton>
         <div>
           <div className="modal">
-            <div className="modal-content">
+            <div className="modal-content" style={{width: addVehicleEntry?'30rem':'40rem'}}>
             <div>
               <span className="close-button">×</span>
               </div>
