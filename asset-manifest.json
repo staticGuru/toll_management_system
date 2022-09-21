@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/toll_management_system/static/css/main.b889de87.css",
-    "main.js": "/toll_management_system/static/js/main.f7dc949f.js",
+    "main.css": "/toll_management_system/static/css/main.b4159bb0.css",
+    "main.js": "/toll_management_system/static/js/main.8745fc6f.js",
     "static/js/787.ed620b70.chunk.js": "/toll_management_system/static/js/787.ed620b70.chunk.js",
     "static/media/no_search_data.jpg": "/toll_management_system/static/media/no_search_data.0b2a8ab9e1ef4fceeaaf.jpg",
     "static/media/no_data.jpg": "/toll_management_system/static/media/no_data.9a906e1cf16c6c7fa3bb.jpg",
     "static/media/filter.png": "/toll_management_system/static/media/filter.1ed63101ff618bada7e7.png",
     "index.html": "/toll_management_system/index.html",
-    "main.b889de87.css.map": "/toll_management_system/static/css/main.b889de87.css.map",
-    "main.f7dc949f.js.map": "/toll_management_system/static/js/main.f7dc949f.js.map",
+    "main.b4159bb0.css.map": "/toll_management_system/static/css/main.b4159bb0.css.map",
+    "main.8745fc6f.js.map": "/toll_management_system/static/js/main.8745fc6f.js.map",
     "787.ed620b70.chunk.js.map": "/toll_management_system/static/js/787.ed620b70.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.b889de87.css",
-    "static/js/main.f7dc949f.js"
+    "static/css/main.b4159bb0.css",
+    "static/js/main.8745fc6f.js"
   ]
 }
