@@ -18,9 +18,10 @@
 .title {
   font-size: 2rem;
   font-weight: bold;
+  text-align: center;
 }
 .title-container {
-  border-bottom: 1px solid #7f8487;
+  /* border-bottom: 1px solid #7f8487; */
 }
 .page-title {
   color: white;

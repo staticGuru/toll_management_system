@@ -2,7 +2,6 @@ import React from "react";
 import { VehicleEntryEnum } from "../enum";
 import { connect } from "react-redux";
 
-import { increaseCounter, decreaseCounter } from "../redux/Toll/toll.actions";
 import DateTimeConvertor from "../utils/dateTimeConvertor";
 import NoData from "./nodata";
 import NoDataFound from "../assets/no_data.jpg";
@@ -93,10 +92,6 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-    increaseCounter: () => dispatch(increaseCounter()),
-
-    decreaseCounter: () => dispatch(decreaseCounter()),
-  };
+  return {};
 };
 export default connect(mapStateToProps, mapDispatchToProps)(VehicleEntryTable);

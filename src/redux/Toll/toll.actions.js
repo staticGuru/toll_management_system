@@ -1,17 +1,6 @@
-import { INCREMENT, DECREMENT, ADDNEWTOLL,NEWVEHICLEENTRY, FILTERTOLL, SEARCHVEHICLE, SEARCHTOLL } from "./toll.types";
+import {  ADDNEWTOLL,NEWVEHICLEENTRY, FILTERTOLL, SEARCHVEHICLE, SEARCHTOLL } from "./toll.types";
 
-export const increaseCounter = (payload) => {
-  return {
-    type: INCREMENT,
-    payload
-  };
-};
 
-export const decreaseCounter = () => {
-  return {
-    type: DECREMENT,
-  };
-};
 export const addNewTollList=(payload) => {
      return {
           type: ADDNEWTOLL,
