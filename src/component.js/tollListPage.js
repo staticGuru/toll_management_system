@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { VehicleEntryEnum } from "../enum";
 import deleteIcon from "../assets/delete.png";
@@ -9,6 +9,23 @@ import NoSearchData from "../assets/no_search_data.jpg";
 import capitalizeFirstLetter from "../utils/capitalize";
 
 function TollListPage(props) {
+  useEffect(() => {
+    const rows = Array.from(document.querySelectorAll("tr"));
+
+    function slideOut(row) {
+      row.classList.add("toll-slide-out");
+    }
+
+    function slideIn(row, index) {
+      setTimeout(function () {
+        row.classList.remove("toll-slide-out");
+      }, (index + 5) * 50);
+    }
+
+    rows.forEach(slideOut);
+
+    rows.forEach(slideIn);
+  },[]);
   const deleteToll = (id) => {
     const updatedTollList = props.tollList?.filter((e) => e.toll_id != id);
     props.addNewTollList(updatedTollList);
@@ -32,7 +49,7 @@ function TollListPage(props) {
           <NoData image={NoSearchData} />
         </div>
       ) : (
-        <table style={{ width: "80%", margin: "auto" }}>
+        <table className="zigzag" style={{ width: "80%", margin: "auto" }}>
           <tr className="table-header">
             <th
               style={{ width: "40%", textAlign: "left", paddingLeft: "20px" }}

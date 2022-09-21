@@ -74,8 +74,17 @@ td {
 
   /* padding-top: 5px; */
 }
+tr {
+  transition: all 1s ease-in-out;
+}
 tr:nth-child(even) {
   background-color: #d6eeee;
+}
+.slide-out {
+  transform: translateX(100%);
+}
+.toll-slide-out {
+  transform: translateX(100%);
 }
 .customButton {
   transition: box-shadow 0.3s;

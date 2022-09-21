@@ -1,13 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { VehicleEntryEnum } from "../enum";
 import { connect } from "react-redux";
-
 import DateTimeConvertor from "../utils/dateTimeConvertor";
 import NoData from "./nodata";
 import NoDataFound from "../assets/no_data.jpg";
 import NoSearchData from "../assets/no_search_data.jpg";
 
 function VehicleEntryTable(props) {
+  useEffect(() => {
+    const rows = Array.from(document.querySelectorAll("tr"));
+
+    function slideOut(row) {
+      row.classList.add("slide-out");
+    }
+
+    function slideIn(row, index) {
+      setTimeout(function () {
+        row.classList.remove("slide-out");
+      }, (index + 5) * 50);
+    }
+
+    rows.forEach(slideOut);
+
+    rows.forEach(slideIn);
+  },[]);
   return (
     <div style={{ marginTop: "20px" }}>
       {props.entryData?.length == 0 ? (
@@ -34,7 +50,7 @@ function VehicleEntryTable(props) {
           <NoData image={NoSearchData} />
         </div>
       ) : (
-        <table style={{ width: "80%", margin: "auto" }}>
+        <table className="zigzag" style={{ width: "80%", margin: "auto" }}>
           <tr className="table-header">
             <th
               style={{ width: "40%", textAlign: "left", paddingLeft: "20px" }}
