@@ -3,7 +3,9 @@ import { connect } from "react-redux";
 import { VehicleEntryEnum } from "../enum";
 import deleteIcon from '../assets/delete.png';
 import { addNewTollList } from "../redux/Toll/toll.actions";
+import NoData from "./nodata";
 import NoDataFound from '../assets/no_data.jpg'
+import NoSearchData from "../assets/no_search_data.jpg";
 
 function TollListPage(props) {
   const deleteToll = (id) => {
@@ -13,16 +15,13 @@ function TollListPage(props) {
   };
   return (
     <div style={{ marginTop: "20px" }}>
-      {props.tollList?.length==0?<div><img
-        src={NoDataFound}
-        style={{
-          width: "30%",
-          height: "30%",
-          display:'flex',
-          marginRight:'10px',alignSelf: "center",margin:'auto'
-        }}
-        alt="search"
-      /></div>:<table style={{ width: "80%",margin:'auto' }}>
+      {props.tollList?.length==0?<div>
+        <NoData image={NoDataFound} text={'Create the toll gate instance by clicking "Add new toll"'}/>
+      </div>:props.tollList?.filter(
+        (e) =>
+          e.toll_name?.toUpperCase()?.includes(props.searchToll) ||
+          props.searchToll == undefined
+      )?<div><NoData image={NoSearchData}/></div>:<table style={{ width: "80%",margin:'auto' }}>
         <tr className="table-header" >
           <th style={{ width: "40%", textAlign: "left", paddingLeft: "20px"  }}>
             TOLL NAME
