@@ -8,23 +8,22 @@ function Home(props) {
   useEffect(() => {
     var _tollList = localStorage.getItem("_tollList");
     var _entryList = localStorage.getItem("_entryList");
-    if (_tollList && props.tollList.length<=0) {
-      if(JSON.parse(_tollList).length>0){
+    if (_tollList && props.tollList.length <= 0) {
+      if (JSON.parse(_tollList).length > 0) {
         props.addNewTollList(JSON.parse(_tollList));
-
       }
     }
-  if(_entryList && props.vehicleEntryList.length<=0) {
-    if(JSON.parse(_entryList).length>0){
-    props.addNewVehicleEntry(JSON.parse(_entryList))
+    if (_entryList && props.vehicleEntryList.length <= 0) {
+      if (JSON.parse(_entryList).length > 0) {
+        props.addNewVehicleEntry(JSON.parse(_entryList));
+      }
     }
-  }
   }, [props]);
   return (
     <div className="home">
       <ActionBar tollList={props.tollList} />
       <div>
-      <VehicleEntryTable />
+        <VehicleEntryTable />
       </div>
     </div>
   );
@@ -32,7 +31,7 @@ function Home(props) {
 const mapStateToProps = (state) => {
   return {
     vehicleEntryList: state.toll.entry_data,
-    tollList:state.toll.toll_list
+    tollList: state.toll.toll_list,
   };
 };
 const mapDispatchToProps = (dispatch) => {

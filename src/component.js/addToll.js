@@ -3,6 +3,7 @@ import DropDown from "./dropdown";
 import { VehicleEntryEnum } from "../enum";
 import { connect } from "react-redux";
 import { addNewTollList } from "../redux/Toll/toll.actions";
+import capitalizeFirstLetter from "../utils/capitalize";
 function AddToll(props) {
   const [selectedFare, setSelectedFare] = useState([]);
   const [tollName, setTollName] = useState();
@@ -31,17 +32,11 @@ function AddToll(props) {
         ])
       )
     );
-    console.log("faatre", Object.keys(vehicleFareDetails));
     if (
       Object.keys(vehicleFareDetails).length !=
         Object.keys(VehicleEntryEnum).length ||
       Object.keys(vehicleFareDetails).includes("0")
     ) {
-      console.log(
-        "values",
-        Object.values(vehicleFareDetails).filter((e) => e.single_journey == "")
-      );
-
       window.alert("Please select the all vehicle type");
       return false;
     }
@@ -58,7 +53,7 @@ function AddToll(props) {
     }
     const details = {
       toll_id: Math.random()?.toString(),
-      toll_name,
+      toll_name: capitalizeFirstLetter(toll_name),
       vehicleFareDetails,
     };
 

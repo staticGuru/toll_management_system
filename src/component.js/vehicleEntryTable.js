@@ -20,21 +20,22 @@ function VehicleEntryTable(props) {
             }
           />
         </div>
+      ) : props.entryData
+          .filter(
+            (e) =>
+              e.entry_toll.toll_id == props.filterToll ||
+              props.filterToll == undefined
+          )
+          .filter(
+            (e) =>
+              e.vehicle_number.includes(props.searchVehicle) ||
+              props.searchVehicle == undefined
+          ).length == 0 ? (
+        <div>
+          <NoData image={NoSearchData} />
+        </div>
       ) : (
-        props.entryData
-            .filter(
-              (e) =>
-                e.entry_toll.toll_id == props.filterToll ||
-                props.filterToll == undefined
-            )
-            .filter(
-              (e) =>
-                e.vehicle_number.includes(props.searchVehicle) ||
-                props.searchVehicle == undefined
-            ).length ==0?<div><NoData
-            image={NoSearchData}
-            
-          /></div>:<table style={{ width: "80%", margin: "auto" }}>
+        <table style={{ width: "80%", margin: "auto" }}>
           <tr className="table-header">
             <th
               style={{ width: "40%", textAlign: "left", paddingLeft: "20px" }}

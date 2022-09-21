@@ -12,23 +12,22 @@ function AddVehicle(props) {
   const [vehicleNum, setVehicleNum] = useState();
 
   const addEntryHandler = () => {
-    console.log("called", toll, vehicleType, vehicleNumber, tariff);
     var vehicleName = document.forms.RegForm.vehicleName;
-    var VehicleTypeName=document.forms.RegForm.VehicleTypeName;
-    if(toll ==0){
+    var VehicleTypeName = document.forms.RegForm.VehicleTypeName;
+    if (toll == 0) {
       window.alert("Please select toll name");
       return false;
     }
-    if(vehicleType ==0){
+    if (vehicleType == 0) {
       window.alert("Please select vehicle type.");
       VehicleTypeName.focus();
-        return false;
+      return false;
     }
     if (vehicleNumber == undefined) {
       window.alert("Please enter your vehicle number.");
       vehicleName.focus();
       return false;
-  }
+    }
 
     const bodyData = {
       entry_id: Math.random(),
@@ -43,7 +42,7 @@ function AddVehicle(props) {
       tariff,
       entry_datetime: new Date(),
     };
-  
+
     props.addNewVehicleEntry([bodyData, ...props.entryData]);
     setToll(0);
     setVehicleNumber();
@@ -58,36 +57,34 @@ function AddVehicle(props) {
     selects.forEach((select) => {
       select.value = 0;
     });
-    localStorage.setItem('_entryList', JSON.stringify([bodyData, ...props.entryData]));
+    localStorage.setItem(
+      "_entryList",
+      JSON.stringify([bodyData, ...props.entryData])
+    );
 
     document.querySelector(".modal")?.classList.toggle("show-modal");
-
   };
-  function tariffCalculator(amount){
-    const isVehiclePassed=props.entryData.filter(e=>(e.entry_toll.toll_id ==toll && e.vehicle_number ==vehicleNumber))
-    if(isVehiclePassed.length>0){
-       
-        const lastCrossedTime =new Date(isVehiclePassed[0]?.entry_datetime)?.getTime() / 1000;
-        const reCrossedTime= new Date()?.getTime() / 1000;
-        console.log("vppped passed",reCrossedTime-lastCrossedTime);
-        if((reCrossedTime-lastCrossedTime) <=3600){
-          setTariff(amount.return_journey);
-        }else{
-          setTariff(amount.single_journey);
-
-        }
-
-    }else{
-      console.log("No vehicle passed")
+  function tariffCalculator(amount) {
+    const isVehiclePassed = props.entryData.filter(
+      (e) => e.entry_toll.toll_id == toll && e.vehicle_number == vehicleNumber
+    );
+    if (isVehiclePassed.length > 0) {
+      const lastCrossedTime =
+        new Date(isVehiclePassed[0]?.entry_datetime)?.getTime() / 1000;
+      const reCrossedTime = new Date()?.getTime() / 1000;
+      if (reCrossedTime - lastCrossedTime <= 3600) {
+        setTariff(amount.return_journey);
+      } else {
+        setTariff(amount.single_journey);
+      }
+    } else {
       setTariff(amount.single_journey);
-
     }
   }
   const findVehicleNumber = () => {
     var amount = props.tollList?.filter((e) => e.toll_id == toll)[0]
       ?.vehicleFareDetails[vehicleType];
-       tariffCalculator(amount);
-    
+    tariffCalculator(amount);
   };
   useEffect(() => {
     if (toll && vehicleType && vehicleNum) {
@@ -96,7 +93,6 @@ function AddVehicle(props) {
   }, [toll, vehicleNum, vehicleType]);
   const focusOut = () => {
     const x = document.getElementById("vehicleNumber");
-    console.log("dfsd", x.value?.toUpperCase());
 
     if (x.value) {
       setVehicleNumber(x.value?.toUpperCase());
@@ -104,85 +100,97 @@ function AddVehicle(props) {
     }
   };
   return (
-    <form name="RegForm" onsubmit={()=>console.log("called")} method="post">
-    <div
-      style={{
-        justifyContent: "center",
-        alignItems: "center",
-        textAlign: "center",
-        paddingLeft: "20px",
-        paddingRight: "20px",
-        // display: "flex",
-        // flexDirection: "column",
-     
-      }}
-    >
-      <div style={{textAlign: "center",fontWeight: "bold",fontSize: "20px"}}>Add new entry</div>
-      <div style={{ textAlign: "left" }}>
-        <div className="popup-text required">Select toll name</div>
-        <div>
-        <div style={{width: "100%"}}>
-          <DropDown
-            options={[
-              { id: 0, label: "Select toll" },
-              ...props.tollList?.map((toll) => ({
-                id: toll.toll_id,
-                label: toll.toll_name,
-              })),
-            ]}
-            dropDownId={"selectToll"}
-            onDropDownChange={(e) => setToll(e.target.value)}
-          />
-          </div>
-          <div className="popup-text required">Select vehicle type</div>
+    <form name="RegForm" onsubmit={() => {}} method="post">
+      <div
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          textAlign: "center",
+          paddingLeft: "20px",
+          paddingRight: "20px"
+        }}
+      >
+        <div
+          style={{ textAlign: "center", fontWeight: "bold", fontSize: "20px" }}
+        >
+          Add new entry
+        </div>
+        <div style={{ textAlign: "left" }}>
+          <div className="popup-text required">Select toll name</div>
           <div>
-            <DropDown
-              options={[
-                { id: 0, label: "Select vehicle type" },
-                ...Object.keys(VehicleEntryEnum).map((key) => ({
-                  id: key,
-                  label: VehicleEntryEnum[key],
-                })),
-              ]}
-              name="VehicleTypeName"
-              dropDownId={"selectVehicleType"}
-              onDropDownChange={(e) => setVehicleType(e.target.value)}
-            />
-          </div>
-          <div className="popup-text required">Vehicle Number</div>
-          <div style={{marginTop:'10px'}}>
-            <input
-              type="text"
-              id="vehicleNumber"
-              className="input-number"
-              name="vehicleName"
-              value={vehicleNumber}
-              onBlur={focusOut}
-              placeholder="Enter your vehicle number"
-              onChange={(e) => setVehicleNumber(e.target.value?.trim())}
-            />
-          </div>
-          <div className="popup-text">Tariff</div>
-          <div style={{marginTop:'10px',marginBottom:'20px'}}>
-            <input
-              type="number"
-              placeholder="Tariff amount"
-              value={tariff}
-              className="input-number"
-              disabled
-              onChange={(e) => setTariff(e)}
-              id="tariff"
-            />
+            <div style={{ width: "100%" }}>
+              <DropDown
+                options={[
+                  { id: 0, label: "Select toll" },
+                  ...props.tollList?.map((toll) => ({
+                    id: toll.toll_id,
+                    label: toll.toll_name,
+                  })),
+                ]}
+                dropDownId={"selectToll"}
+                onDropDownChange={(e) => setToll(e.target.value)}
+              />
+            </div>
+            <div className="popup-text required">Select vehicle type</div>
+            <div>
+              <DropDown
+                options={[
+                  { id: 0, label: "Select vehicle type" },
+                  ...Object.keys(VehicleEntryEnum).map((key) => ({
+                    id: key,
+                    label: VehicleEntryEnum[key],
+                  })),
+                ]}
+                name="VehicleTypeName"
+                dropDownId={"selectVehicleType"}
+                onDropDownChange={(e) => setVehicleType(e.target.value)}
+              />
+            </div>
+            <div className="popup-text required">Vehicle Number</div>
+            <div style={{ marginTop: "10px" }}>
+              <input
+                type="text"
+                id="vehicleNumber"
+                className="input-number"
+                name="vehicleName"
+                value={vehicleNumber}
+                onBlur={focusOut}
+                placeholder="Enter your vehicle number"
+                onChange={(e) => setVehicleNumber(e.target.value?.trim())}
+              />
+            </div>
+            <div className="popup-text">Tariff</div>
+            <div style={{ marginTop: "10px", marginBottom: "20px" }}>
+              <input
+                type="number"
+                placeholder="Tariff amount"
+                value={tariff}
+                className="input-number"
+                disabled
+                onChange={(e) => setTariff(e)}
+                id="tariff"
+              />
+            </div>
           </div>
         </div>
+        <div
+          style={{
+            marginTop: "10px",
+            backgroundColor: "#5F6F94",
+            cursor: "pointer",
+            width: "70%",
+            alignSelf: "center",
+            margin: "auto",
+            padding: "10px",
+            borderRadius: 10,
+            color: "white",
+            fontWeight: "bold",
+          }}
+          onClick={() => addEntryHandler()}
+        >
+          Add Entry
+        </div>
       </div>
-      <div
-        style={{marginTop:'10px', backgroundColor: "#5F6F94", cursor: "pointer",width:'70%',alignSelf:'center',margin:'auto',padding:'10px',borderRadius:10,color:'white',fontWeight:'bold' }}
-        onClick={() => addEntryHandler()}
-      >
-        Add Entry
-      </div>
-    </div>
     </form>
   );
 }

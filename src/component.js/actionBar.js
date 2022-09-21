@@ -32,7 +32,6 @@ function ActionBar(props) {
       modal.classList.toggle("show-modal");
     }
     function entryToggleModal() {
-      console.log("toggleModal");
       setAddVehicleEntry(true);
       modal.classList.toggle("show-modal");
     }
@@ -57,11 +56,8 @@ function ActionBar(props) {
       window?.removeEventListener("click", windowOnClick);
     };
   });
-  const showAddNewToll = () => {
-    console.log("called");
-  };
+
   const changeTollFilter = (e) => {
-    console.log("tollfilter", e);
     setTollFilter(e);
     props.filterToll(e);
   };
@@ -154,7 +150,7 @@ function ActionBar(props) {
             </div>
           </div>
         )}
-        <div style={{marginLeft:isTollListPage?'10px':'0px'}}>
+        <div style={{ marginLeft: isTollListPage ? "10px" : "0px" }}>
           <div class="wrap">
             <div
               class="search"
@@ -174,7 +170,7 @@ function ActionBar(props) {
                   height: "15px",
                   alignItems: "center",
                   justifyContent: "center",
-                  marginRight:'10px'
+                  marginRight: "10px",
                 }}
                 alt="search"
               />
@@ -194,9 +190,7 @@ function ActionBar(props) {
         </div>
       </div>
       <div style={{ display: "flex", flexDirection: "row" }}>
-        <CustomButton
-          className="entry-trigger customButton"
-        >
+        <CustomButton className="entry-trigger customButton">
           Add vehicle entry
         </CustomButton>
 
@@ -205,9 +199,12 @@ function ActionBar(props) {
         </CustomButton>
         <div>
           <div className="modal">
-            <div className="modal-content" style={{width: addVehicleEntry?'30rem':'40rem'}}>
-            <div>
-              <span className="close-button">×</span>
+            <div
+              className="modal-content"
+              style={{ width: addVehicleEntry ? "30rem" : "40rem" }}
+            >
+              <div>
+                <span className="close-button">×</span>
               </div>
               <div className="inner-content">
                 {addVehicleEntry ? <AddVehicle /> : <AddToll />}
@@ -217,7 +214,7 @@ function ActionBar(props) {
         </div>
         {isTollListPage ? (
           <CustomButton
-          className="customButton"
+            className="customButton"
             onClick={() => {
               history.push("/");
             }}
@@ -226,7 +223,7 @@ function ActionBar(props) {
           </CustomButton>
         ) : (
           <CustomButton
-          className="customButton"
+            className="customButton"
             onClick={() => {
               history.push("/toll_list");
             }}
